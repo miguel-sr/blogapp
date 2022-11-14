@@ -15,7 +15,8 @@ const Categoria = mongoose.model('categorias')
 const usuarios = require('./routes/usuario')
 const passport = require('passport')
 require('./config/auth')(passport)
-const dbURL = require('./config/db')
+const db = require('./config/db')
+
 
 // Configurações //
 
@@ -53,8 +54,9 @@ app.engine('handlebars', handlebars.engine({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars')
 
 // Mongoose
+
 mongoose.Promise = global.Promise;
-mongoose.connect(dbURL.mongoURI, {
+mongoose.connect(db.mongoURI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
@@ -72,7 +74,7 @@ app.get('/', (req, res) => {
     res.render('index', {postagens: postagens})
   }).catch((err) => {
     req.flash('error_msg', 'Houve um erro interno: ' + err)
-    req.redirect('/404')
+    res.redirect('/404')
   })
 })
 
