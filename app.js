@@ -16,6 +16,7 @@ const usuarios = require('./routes/usuario')
 const passport = require('passport')
 require('./config/auth')(passport)
 const db = require('./config/db')
+const uri = "mongodb+srv://miguel-sr:sgQVZUnQlIIaT00G@blogapp.fja7bpy.mongodb.net/?retryWrites=true&w=majority"
 
 
 // Configurações //
@@ -56,7 +57,7 @@ app.set('view engine', 'handlebars')
 // Mongoose
 
 mongoose.Promise = global.Promise;
-mongoose.connect(db.mongoURI, {
+mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
